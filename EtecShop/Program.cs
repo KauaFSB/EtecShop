@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using EtecShop.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,12 @@ opt => opt.UseInMemoryDatabase(conn)
 );
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+    opt => opt.SignIn.RequireConfirmedAccount = false
+)
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
 
 var app = builder.Build();
 
